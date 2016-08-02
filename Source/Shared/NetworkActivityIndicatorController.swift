@@ -28,8 +28,8 @@ public class NetworkActivityIndicatorController {
     /** Shows network activity indicator and return activity identifier. */
     func beginNetworkActivity() -> Int {
         #if os(iOS)
-            let result = _currentIdentifier + 1
-            _activeIdentifiers[result] = result
+            let result = currentIdentifier + 1
+            activeIdentifiers[result] = result
             self.mainQueue.addOperationWithBlock {
                 UIApplication.sharedApplication().networkActivityIndicatorVisible = true
             }
@@ -45,9 +45,9 @@ public class NetworkActivityIndicatorController {
             return
         }
         #if os(iOS)
-            _activeIdentifiers.removeValueForKey(identifier!)
+            activeIdentifiers.removeValueForKey(identifier!)
             self.mainQueue.addOperationWithBlock {
-                if _activeIdentifiers.count == 0 {
+                if activeIdentifiers.count == 0 {
                     UIApplication.sharedApplication().networkActivityIndicatorVisible = false
                 }
             }

@@ -156,15 +156,15 @@ public class Parameter {
     public class var zip                    : String { return #function }
 
     // MARK: - INTERNAL
-    class var client_id       : String { return "client_id" }
-    class var client_secret   : String { return "client_secret" }
-    class var redirect_uri    : String { return "redirect_uri" }
+    class var clientId       : String { return "client_id" }
+    class var clientSecret   : String { return "client_secret" }
+    class var redirectUri    : String { return "redirect_uri" }
     class var code            : String { return "code" }
-    class var grant_type      : String { return "grant_type" }
-    class var oauth_token     : String { return "oauth_token" }
+    class var grantType      : String { return "grant_type" }
+    class var oauthToken     : String { return "oauth_token" }
     class var v               : String { return "v" }
     class var locale          : String { return "locale" }
-    class var response_type   : String { return "response_type" }
+    class var responseType   : String { return "response_type" }
     class var m               : String { return "m" }
     class var requests        : String { return "requests" }
     
@@ -192,7 +192,7 @@ public class Parameter {
         
         if let preformatted = preformattedQueryString {
             let delimiter = components.query != nil ? "&" : "?"
-            return NSURL(string: components.URL!.absoluteString + delimiter + preformatted)!
+            return NSURL(string: components.URL!.absoluteString! + delimiter + preformatted)!
         }
         return components.URL!
     }

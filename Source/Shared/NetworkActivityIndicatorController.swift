@@ -13,12 +13,12 @@ import UIKit
 #endif
 
 /** Last issued identifier. */
-private var _currentIdentifier: Int = 0
+private var currentIdentifier: Int = 0
 
 /** Active identifiers. If it's empty network activity indicator should be hidden. */
-private var _activeIdentifiers: [Int:Int]! = [Int:Int]()
+private var activeIdentifiers: [Int:Int]! = [Int:Int]()
 
-public let InvalidNetworkActivityIdentifier = -1
+public let invalidNetworkActivityIdentifier = -1
 
 /** Controlls network activity indicator on iOS. Does nothing on OSX. */
 public class NetworkActivityIndicatorController {
@@ -35,7 +35,7 @@ public class NetworkActivityIndicatorController {
             }
             return result
         #else
-            return InvalidNetworkActivityIdentifier
+            return invalidNetworkActivityIdentifier
         #endif
     }
     

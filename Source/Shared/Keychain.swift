@@ -58,9 +58,9 @@ class Keychain {
         }
         var accessToken: String? = nil
         if status == errSecSuccess {
-            if let retrievedData = dataTypeRef as? NSData {
-                if retrievedData.length != 0 {
-                    accessToken = NSString(data: retrievedData, encoding: NSUTF8StringEncoding) as? String
+            if let retrievedData = dataTypeRef as? Data {
+                if retrievedData.count != 0 {
+                    accessToken = NSString(data: retrievedData, encoding: String.Encoding.utf8.rawValue) as? String
                 }
             }
         }
@@ -82,7 +82,7 @@ class Keychain {
         }
     }
     
-    func saveAccessToken(accessToken: String) throws {
+    func saveAccessToken(_ accessToken: String) throws {
         do {
             if let _ = try self.accessToken() {
                 try deleteAccessToken()
@@ -91,7 +91,7 @@ class Keychain {
             
         }
         var query = keychainQuery
-        let accessTokenData = accessToken.dataUsingEncoding(NSUTF8StringEncoding, allowLossyConversion: false)
+        let accessTokenData = accessToken.data(using: String.Encoding.utf8, allowLossyConversion: false)
         query[kSecValueData as String] =  accessTokenData
         let status = SecItemAdd(query, nil)
         if status != errSecSuccess {
@@ -101,7 +101,7 @@ class Keychain {
         }
     }
     
-    private func errorWithStatus(status: OSStatus) -> NSError {
+    private func errorWithStatus(_ status: OSStatus) -> NSError {
         return NSError(domain: QuadratKeychainOSSatusErrorDomain, code: Int(status), userInfo: nil)
     }
     

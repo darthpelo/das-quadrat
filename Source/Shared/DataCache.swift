@@ -38,7 +38,7 @@ class DataCache {
     private let directoryURL: URL
     
     /** In memory cache for NSData. */
-    private let cache = Cache()
+    private let cache: Cache<NSString, NSData> = Cache()
     
     /** Obsever objects from NSNotificationCenter. */
     private var observers = [AnyObject]()

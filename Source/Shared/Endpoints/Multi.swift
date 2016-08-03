@@ -9,7 +9,7 @@
 import Foundation
 
 func encodeURIComponent(_ string: String) -> String {
-    return string.addingPercentEncoding(withAllowedCharacters: .alphanumerics())!
+    return string.addingPercentEncoding(withAllowedCharacters: CharacterSet.alphanumerics)!
 }
 
 public class Multi: Endpoint {

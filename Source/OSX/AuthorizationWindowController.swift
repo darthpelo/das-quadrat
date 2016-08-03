@@ -44,8 +44,8 @@ class AuthorizationWindowController: NSWindowController {
     
     func loadAuthorizationURL() {
         self.status = .Loading
-        let request = NSURLRequest(URL: self.authorizationURL)
-        self.webView.mainFrame.loadRequest(request)
+        let request = NSURLRequest(url: self.authorizationURL as URL)
+        self.webView.mainFrame.load(request as URLRequest)
     }
     
     // MARK: - Actions
@@ -62,20 +62,20 @@ class AuthorizationWindowController: NSWindowController {
     // MARK: - Delegate methods
     
     func webView(webView: WebView!, dragSourceActionMaskForPoint point: NSPoint) -> Int {
-        return Int(WebDragSourceAction.None.rawValue)
+        return 0
     }
     
     func webView(webView: WebView!,
         dragDestinationActionMaskForDraggingInfo draggingInfo: NSDraggingInfo!) -> Int {
-            return Int(WebDragDestinationAction.None.rawValue)
+            return 0
     }
     
     func webView(webView: WebView!,
         decidePolicyForNavigationAction actionInformation: [NSObject : AnyObject]!,
         request: NSURLRequest!, frame: WebFrame!, decisionListener listener: WebPolicyDecisionListener!) {
-            if let URLString = request.URL?.absoluteString {
-                if URLString.hasPrefix(self.redirectURL.absoluteString) {
-                    self.delegate?.didReachRedirectURL(request.URL!)
+            if let URLString = request.url?.absoluteString {
+                if URLString.hasPrefix(self.redirectURL.absoluteString!) {
+                    self.delegate?.didReachRedirectURL(request.url!)
                     listener.ignore()
                 }
             }
@@ -104,22 +104,22 @@ class AuthorizationWindowController: NSWindowController {
         case .Loading:
             self.loadIndicator.startAnimation(self)
             self.statusLabel.stringValue = ""
-            self.refreshButton.hidden = true
+            self.refreshButton.isHidden = true
             
         case .Loaded:
             self.loadIndicator.stopAnimation(self)
             self.statusLabel.stringValue = ""
-            self.refreshButton.hidden = true
+            self.refreshButton.isHidden = true
             
         case .Failed(let error):
             self.loadIndicator.stopAnimation(self)
             self.statusLabel.stringValue = error.localizedDescription
-            self.refreshButton.hidden = false
+            self.refreshButton.isHidden = false
             
         case .None:
             self.loadIndicator.stopAnimation(self)
             self.statusLabel.stringValue = ""
-            self.refreshButton.hidden = true
+            self.refreshButton.isHidden = true
         }
     }
 }

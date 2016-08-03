@@ -52,6 +52,6 @@ class Request {
             preformattedQueryString: preformattedQueryString)
         let request = NSMutableURLRequest(url: requestURL)
         request.httpMethod = HTTPMethod
-        return request
+        return request as URLRequest
     }
 }

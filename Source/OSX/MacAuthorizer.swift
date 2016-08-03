@@ -19,10 +19,10 @@ class MacAuthorizer: Authorizer {
         self.windowController?.redirectURL = self.redirectURL
         self.windowController?.delegate = self
         NSApp.beginSheet(windowController!.window!,
-            modalForWindow: window, modalDelegate: self, didEndSelector: nil, contextInfo: nil)
+                         modalFor: window, modalDelegate: self, didEnd: nil, contextInfo: nil)
     }
     
-    override func finilizeAuthorization(accessToken: String?, error: NSError?) {
+    override func finilizeAuthorization(_ accessToken: String?, error: NSError?) {
         NSApp.endSheet(windowController!.window!)
         self.windowController!.window!.orderOut(self)
         super.finilizeAuthorization(accessToken, error: error)

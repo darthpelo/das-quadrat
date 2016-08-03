@@ -1,5 +1,8 @@
 # Das Quadrat Changelog
 
+* Migrate to Swift 3.0
+
+__2.0.0__
 * Migrate to Swift 2.3.
 
 __1.1.3__

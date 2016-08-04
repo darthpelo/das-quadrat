@@ -61,7 +61,7 @@ let client = Client(clientID:       "FOO.................FOO",
 var configuration = Configuration(client:client)
 Session.setupSharedSessionWithConfiguration(configuration)
 
-let session = Session.sharedSession()
+let session = Session.getSharedSession()
 ```
 
 #####Search request
@@ -105,7 +105,7 @@ in info.plist file in your project.
 
 ###Requirements
 
-Swift 2.0 / iOS 8.0+ / Mac OS X 10.9+
+Swift 3.0 / iOS 8.0+ / Mac OS X 10.9+
 
 ###License
 

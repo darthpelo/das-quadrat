@@ -103,14 +103,12 @@ public class AuthorizationViewController: UIViewController, UIWebViewDelegate {
             return true
     }
     
-    public func webView(webView: UIWebView, didFailLoadWithError error: NSError?) {
-        if let error = error {
-            if error.domain == "WebKitErrorDomain" && error.code == 102 {
-                // URL loading was interrupted. It happens when one taps "download Foursquare to sign up!".
-                return
-            }
-            self.status = .Failed(error)
+    public func webView(webView: UIWebView, didFailLoadWithError error: NSError) {
+        if error.domain == "WebKitErrorDomain" && error.code == 102 {
+            // URL loading was interrupted. It happens when one taps "download Foursquare to sign up!".
+            return
         }
+        self.status = .Failed(error)
     }
     
     public func webViewDidFinishLoad(webView: UIWebView) {

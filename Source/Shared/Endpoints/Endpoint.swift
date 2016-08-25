@@ -28,29 +28,29 @@ public class Endpoint {
         self.baseURL = URL(string:session.configuration.server.apiBaseURL) as URL!
     }
     
-    func getWithPath(_ path: String, parameters: Parameters?, completionHandler: ResponseClosure?) -> Task {
-        return self.taskWithPath(path, parameters: parameters, httpMethod: "GET", completionHandler: completionHandler)
+    func get(with path: String, parameters: Parameters?, completionHandler: ResponseClosure?) -> Task {
+        return self.task(with: path, parameters: parameters, httpMethod: "GET", completionHandler: completionHandler)
     }
     
-    func postWithPath(_ path: String, parameters: Parameters?, completionHandler: ResponseClosure?) -> Task {
-        return self.taskWithPath(path, parameters: parameters, httpMethod: "POST", completionHandler: completionHandler)
+    func post(with path: String, parameters: Parameters?, completionHandler: ResponseClosure?) -> Task {
+        return self.task(with: path, parameters: parameters, httpMethod: "POST", completionHandler: completionHandler)
     }
     
-    func uploadTaskFromURL(_ fromURL: URL, path: String,
+    func uploadTask(from URL: URL, path: String,
         parameters: Parameters?, completionHandler: ResponseClosure?) -> Task {
-            let request = self.requestWithPath(path, parameters: parameters, httpMethod: "POST")
+        let request = self.request(with: path, parameters: parameters, httpMethod: "POST")
             let task = UploadTask(session: self.session!, request: request, completionHandler: completionHandler)
-            task.fileURL = fromURL
+            task.fileURL = URL
             return task
     }
     
-    private func taskWithPath(_ path: String, parameters: Parameters?,
+    private func task(with path: String, parameters: Parameters?,
         httpMethod: String, completionHandler: ResponseClosure?) -> Task {
-            let request = self.requestWithPath(path, parameters: parameters, httpMethod: httpMethod)
+        let request = self.request(with: path, parameters: parameters, httpMethod: httpMethod)
             return DataTask(session: self.session!, request: request, completionHandler: completionHandler)
     }
     
-    private func requestWithPath(_ path: String, parameters: Parameters?, httpMethod: String) -> Request {
+    private func request(with path: String, parameters: Parameters?, httpMethod: String) -> Request {
         var sessionParameters = session!.configuration.parameters()
         if sessionParameters[Parameter.oauth_token] == nil {
             do {

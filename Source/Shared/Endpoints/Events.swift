@@ -14,8 +14,8 @@ public class Events: Endpoint {
     }
     
     /** https://developer.foursquare.com/docs/events/events */
-    public func get(_ eventId: String, completionHandler: ResponseClosure? = nil) -> Task {
-        return self.getWithPath(eventId, parameters: nil, completionHandler: completionHandler)
+    public func get(eventId: String, completionHandler: ResponseClosure? = nil) -> Task {
+        return self.get(with: eventId, parameters: nil, completionHandler: completionHandler)
     }
     
     // MARK: - General
@@ -23,7 +23,7 @@ public class Events: Endpoint {
     /** https://developer.foursquare.com/docs/events/categories */
     public func categories(_ completionHandler: ResponseClosure? = nil) -> Task {
         let path = "categories"
-        return self.getWithPath(path, parameters: nil, completionHandler: completionHandler)
+        return self.get(with: path, parameters: nil, completionHandler: completionHandler)
     }
     
     /** https://developer.foursquare.com/docs/events/search */
@@ -31,7 +31,7 @@ public class Events: Endpoint {
         let path = "search"
         var allParameters = [Parameter.domain: domain]
         allParameters += parameters
-        return self.getWithPath(path, parameters: allParameters, completionHandler: completionHandler)
+        return self.get(with: path, parameters: allParameters, completionHandler: completionHandler)
     }
     
     // MARK: - Actions
@@ -39,7 +39,7 @@ public class Events: Endpoint {
     /** https://developer.foursquare.com/docs/events/add */
     public func add(_ parameters: Parameters?, completionHandler: ResponseClosure? = nil) -> Task {
         let path = "add"
-        return self.getWithPath(path, parameters: parameters, completionHandler: completionHandler)
+        return self.get(with: path, parameters: parameters, completionHandler: completionHandler)
     }
     
 }

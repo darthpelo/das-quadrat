@@ -38,7 +38,7 @@ class DataCache {
     private let directoryURL: URL
     
     /** In memory cache for NSData. */
-    private let cache: Cache<NSString, NSData> = Cache()
+    private let cache: NSCache<AnyObject, AnyObject> = NSCache()
     
     /** Obsever objects from NSNotificationCenter. */
     private var observers = [AnyObject]()
@@ -55,12 +55,11 @@ class DataCache {
         let subdirectiryName = (name != nil) ? ( "Cache" + name! ) : "DefaultCache"
         let cacheURL: URL?
         do {
-            cacheURL = try fileManager.urlForDirectory(.cachesDirectory, in: .userDomainMask,
-                        appropriateFor: nil, create: true)
+            cacheURL = try fileManager.url(for: .cachesDirectory, in: .userDomainMask, appropriateFor: nil, create: true)
         } catch _ {
             fatalError("Can't get access to cache directory")
         }
-        self.directoryURL = try! cacheURL!.appendingPathComponent("\(directoryName)/DataCache/\(subdirectiryName)")
+        self.directoryURL = cacheURL!.appendingPathComponent("\(directoryName)/DataCache/\(subdirectiryName)")
         privateQueue.maxConcurrentOperationCount = 1
         createBaseDirectory()
         subscribeForNotifications()
@@ -78,7 +77,7 @@ class DataCache {
         privateQueue.addOperation {
             result = self.cache.object(forKey: key) as? Data
             if result == nil {
-                let targetURL = try! self.directoryURL.appendingPathComponent(key)
+                let targetURL = self.directoryURL.appendingPathComponent(key)
                 result = try? Data(contentsOf: targetURL)
                 if let result = result {
                     self.cache.setObject(result, forKey: key, cost: result.count)
@@ -92,7 +91,7 @@ class DataCache {
     /** Copies file into cache. */
     func addFileAtURL(_ URL: Foundation.URL, withKey key: String) {
         privateQueue.addOperation { () -> Void in
-            let targetURL = try! self.directoryURL.appendingPathComponent(key)
+            let targetURL = self.directoryURL.appendingPathComponent(key)
             do {
                 try self.fileManager.copyItem(at: URL, to: targetURL)
             } catch let error as NSError {
@@ -106,7 +105,7 @@ class DataCache {
     /** Saves data into cache. */
     func addData(_ data: Data, withKey key: String) {
         privateQueue.addOperation { () -> Void in
-            let targetURL = try! self.directoryURL.appendingPathComponent(key)
+            let targetURL = self.directoryURL.appendingPathComponent(key)
             do {
                 try data.write(to: targetURL, options: .atomic)
             } catch let error as NSError {
@@ -205,7 +204,7 @@ class DataCache {
     }
     
     private func getCachedFileURLs() -> [URL] {
-        let properties = [URLResourceKey.contentModificationDateKey.rawValue, URLResourceKey.totalFileAllocatedSizeKey.rawValue]
+        let properties = [URLResourceKey.contentModificationDateKey, URLResourceKey.totalFileAllocatedSizeKey]
         do {
             return try fileManager.contentsOfDirectory(at: directoryURL, includingPropertiesForKeys: properties, options: .skipsHiddenFiles)
         } catch let error as NSError {

@@ -47,7 +47,7 @@ class Request {
         if let parameters = self.parameters {
             allParameters += parameters
         }
-        let URL = try! self.baseURL.appendingPathComponent(self.path)
+        let URL = self.baseURL.appendingPathComponent(self.path)
         let requestURL = Parameter.buildURL(URL, parameters: allParameters,
             preformattedQueryString: preformattedQueryString)
         let request = NSMutableURLRequest(url: requestURL)

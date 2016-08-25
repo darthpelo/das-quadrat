@@ -15,7 +15,7 @@ public class PageUpdates: Endpoint {
     
     /** https://developer.foursquare.com/docs/pageupdates/pageupdates */
     public func get(_ updateId: String, parameters: Parameters?, completionHandler: ResponseClosure? = nil) -> Task {
-        return self.getWithPath(updateId, parameters: parameters, completionHandler: completionHandler)
+        return self.get(updateId, parameters: parameters, completionHandler: completionHandler)
     }
     
     // MARK: - General
@@ -23,13 +23,13 @@ public class PageUpdates: Endpoint {
     /** https://developer.foursquare.com/docs/pageupdates/add */
     public func add(_ pageId: String, parameters: Parameters?, completionHandler: ResponseClosure? = nil) -> Task {
         let path = pageId + "/add"
-        return self.postWithPath(path, parameters: parameters, completionHandler: completionHandler)
+        return self.post(with: path, parameters: parameters, completionHandler: completionHandler)
     }
     
     /** https://developer.foursquare.com/docs/pageupdates/list */
     public func list(_ completionHandler: ResponseClosure? = nil) -> Task {
         let path = "list"
-        return self.getWithPath(path, parameters: nil, completionHandler: completionHandler)
+        return self.get(path, parameters: nil, completionHandler: completionHandler)
     }
     
     // MARK: - Actions
@@ -37,12 +37,12 @@ public class PageUpdates: Endpoint {
     /** https://developer.foursquare.com/docs/pageupdates/delete */
     public func delete(_ updateId: String, completionHandler: ResponseClosure? = nil) -> Task {
         let path = updateId + "/delete"
-        return self.postWithPath(path, parameters: nil, completionHandler: completionHandler)
+        return self.post(with: path, parameters: nil, completionHandler: completionHandler)
     }
     
     /** https://developer.foursquare.com/docs/pageupdates/like */
     public func like(_ updateId: String, completionHandler: ResponseClosure? = nil) -> Task {
         let path = updateId + "/like"
-        return self.postWithPath(path, parameters: nil, completionHandler: completionHandler)
+        return self.post(with: path, parameters: nil, completionHandler: completionHandler)
     }
 }

@@ -31,7 +31,7 @@ public class NetworkActivityIndicatorController {
             let result = currentIdentifier + 1
             activeIdentifiers[result] = result
             self.mainQueue.addOperation {
-                UIApplication.shared().isNetworkActivityIndicatorVisible = true
+                UIApplication.shared.isNetworkActivityIndicatorVisible = true
             }
             return result
         #else
@@ -48,7 +48,7 @@ public class NetworkActivityIndicatorController {
             activeIdentifiers.removeValue(forKey: identifier!)
             self.mainQueue.addOperation {
                 if activeIdentifiers.count == 0 {
-                    UIApplication.shared().isNetworkActivityIndicatorVisible = false
+                    UIApplication.shared.isNetworkActivityIndicatorVisible = false
                 }
             }
         #endif

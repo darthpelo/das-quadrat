@@ -95,7 +95,7 @@ extension Result {
         
         if let JSON = JSON {
             if let meta = JSON["meta"] as? [String:AnyObject], let code = meta["code"] as? Int
-                where code < 200 || code > 299 {
+                , code < 200 || code > 299 {
                     result.error = NSError(domain: QuadratResponseErrorDomain, code: code, userInfo: meta)
             }
             result.notifications = JSON["notifications"] as? [[String:AnyObject]]
@@ -120,7 +120,7 @@ extension Result {
         var JSONResult: [String: AnyObject]?
         var JSONError = error
         
-        if let data = data where JSONError == nil && HTTPResponse?.mimeType == "application/json" {
+        if let data = data , JSONError == nil && HTTPResponse?.mimeType == "application/json" {
             do {
                 JSONResult = try JSONSerialization.jsonObject(with: data,
                                 options: JSONSerialization.ReadingOptions(rawValue: 0)) as? [String: AnyObject]

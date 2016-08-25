@@ -15,7 +15,7 @@ public class VenueGroups: Endpoint {
     
     /** https://developer.foursquare.com/docs/venuegroups/venuegroups */
     public func get(_ groupId: String, completionHandler: ResponseClosure? = nil) -> Task {
-        return self.getWithPath(groupId, parameters: nil, completionHandler: completionHandler)
+        return self.get(with: groupId, parameters: nil, completionHandler: completionHandler)
     }
     
     // MARK: - General
@@ -25,19 +25,19 @@ public class VenueGroups: Endpoint {
         let path = "add"
         var allParameters = [Parameter.name: name]
         allParameters += parameters
-        return self.postWithPath(path, parameters: allParameters, completionHandler: completionHandler)
+        return self.post(with: path, parameters: allParameters, completionHandler: completionHandler)
     }
     
     /** https://developer.foursquare.com/docs/venuegroups/delete */
     public func delete(_ groupId: String, completionHandler: ResponseClosure? = nil) -> Task {
         let path = groupId + "/delete"
-        return self.postWithPath(path, parameters: nil, completionHandler: completionHandler)
+        return self.post(with: path, parameters: nil, completionHandler: completionHandler)
     }
     
     /** https://developer.foursquare.com/docs/venuegroups/list */
     public func list(_ completionHandler: ResponseClosure? = nil) -> Task {
         let path = "list"
-        return self.getWithPath(path, parameters: nil, completionHandler: completionHandler)
+        return self.get(with: path, parameters: nil, completionHandler: completionHandler)
     }
     
     // MARK: - Aspects
@@ -46,7 +46,7 @@ public class VenueGroups: Endpoint {
     public func timeseries(_ groupId: String,
         parameters: Parameters?, completionHandler: ResponseClosure? = nil) -> Task {
             let path = groupId + "/timeseries"
-            return self.getWithPath(path, parameters: parameters, completionHandler: completionHandler)
+            return self.get(with: path, parameters: parameters, completionHandler: completionHandler)
     }
     
     // MARK: - Actions
@@ -55,26 +55,26 @@ public class VenueGroups: Endpoint {
     public func addvenue(_ groupId: String, venueId: [String], completionHandler: ResponseClosure? = nil) -> Task {
         let path = groupId + "/addvenue"
         let parameters = [Parameter.venueId: venueId.joined(separator: ",")]
-        return self.postWithPath(path, parameters: parameters, completionHandler: completionHandler)
+        return self.post(with: path, parameters: parameters, completionHandler: completionHandler)
     }
     
     /** https://developer.foursquare.com/docs/venuegroups/edit */
     public func edit(_ groupId: String, parameters: Parameters?, completionHandler: ResponseClosure? = nil) -> Task {
         let path = groupId + "/edit"
-        return self.postWithPath(path, parameters: parameters, completionHandler: completionHandler)
+        return self.post(with: path, parameters: parameters, completionHandler: completionHandler)
     }
     
     /** https://developer.foursquare.com/docs/venuegroups/removevenue */
     public func removevenue(_ groupId: String, venueId: [String], completionHandler: ResponseClosure? = nil) -> Task {
         let path = groupId + "/removevenue"
         let parameters = [Parameter.venueId: venueId.joined(separator: ",")]
-        return self.postWithPath(path, parameters: parameters, completionHandler: completionHandler)
+        return self.post(with: path, parameters: parameters, completionHandler: completionHandler)
     }
     
     /** https://developer.foursquare.com/docs/venuegroups/update */
     public func update(_ groupId: String, parameters: Parameters?, completionHandler: ResponseClosure? = nil) -> Task {
         let path = groupId + "/update"
-        return self.postWithPath(path, parameters: parameters, completionHandler: completionHandler)
+        return self.post(with: path, parameters: parameters, completionHandler: completionHandler)
     }
     
 }

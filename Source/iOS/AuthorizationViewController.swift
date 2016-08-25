@@ -94,7 +94,7 @@ public class AuthorizationViewController: UIViewController, UIWebViewDelegate {
     public func webView(_ webView: UIWebView, shouldStartLoadWith
         request: URLRequest, navigationType: UIWebViewNavigationType) -> Bool {
             if let URLString = request.url?.absoluteString {
-                if URLString.hasPrefix(self.redirectURL.absoluteString!) {
+                if URLString.hasPrefix(self.redirectURL.absoluteString) {
                     // If we've reached redirect URL we should let know delegate.
                     self.authorizationDelegate?.didReachRedirectURL(request.url!)
                     return false
@@ -103,7 +103,7 @@ public class AuthorizationViewController: UIViewController, UIWebViewDelegate {
             return true
     }
     
-    public func webView(_ webView: UIWebView, didFailLoadWithError error: NSError?) {
+    @nonobjc public func webView(_ webView: UIWebView, didFailLoadWithError error: NSError?) {
         if let error = error {
             if error.domain == "WebKitErrorDomain" && error.code == 102 {
                 // URL loading was interrupted. It happens when one taps "download Foursquare to sign up!".
@@ -111,7 +111,8 @@ public class AuthorizationViewController: UIViewController, UIWebViewDelegate {
             }
             self.status = .failed(error)
         }
-    }
+        self.status = .failed(error!)
+   }
     
     public func webViewDidFinishLoad(_ webView: UIWebView) {
         self.status = .loaded

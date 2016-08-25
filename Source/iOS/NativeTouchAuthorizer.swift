@@ -38,7 +38,7 @@ class NativeTouchAuthorizer: Authorizer {
     
     func authorize(_ completionHandler: (String?, NSError?) -> Void) {
         self.completionHandler = completionHandler
-        UIApplication.shared().openURL(self.authorizationURL as URL)
+        UIApplication.shared.openURL(self.authorizationURL as URL)
     }
     
     func handleURL(_ URL: Foundation.URL) -> Bool {

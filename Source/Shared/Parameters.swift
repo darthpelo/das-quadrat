@@ -192,7 +192,7 @@ public class Parameter {
         
         if let preformatted = preformattedQueryString {
             let delimiter = components.query != nil ? "&" : "?"
-            return URL(string: components.url!.absoluteString! + delimiter + preformatted)!
+            return URL(string: components.url!.absoluteString + delimiter + preformatted)!
         }
         return components.url!
     }

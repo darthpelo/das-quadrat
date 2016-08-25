@@ -14,16 +14,16 @@ public class Photos: Endpoint {
     }
     
     /** https://developer.foursquare.com/docs/photos/photos */
-    public func get(_ photoId: String, completionHandler: ResponseClosure? = nil) -> Task {
-        return self.getWithPath(photoId, parameters: nil, completionHandler: completionHandler)
+    public func get(photoId: String, completionHandler: ResponseClosure? = nil) -> Task {
+        return self.get(with: photoId, parameters: nil, completionHandler: completionHandler)
     }
     
     // MARK: - General
     
     /** https://developer.foursquare.com/docs/photos/add */
-    public func add(_ fromURL: URL, parameters: Parameters?, completionHandler: ResponseClosure? = nil) -> Task {
+    public func add(from URL: URL, parameters: Parameters?, completionHandler: ResponseClosure? = nil) -> Task {
         let path = "add"
-        return self.uploadTaskFromURL(fromURL, path: path, parameters: parameters, completionHandler: completionHandler)
+        return self.uploadTask(from: URL, path: path, parameters: parameters, completionHandler: completionHandler)
     }
 
 }

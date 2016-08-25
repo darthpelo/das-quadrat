@@ -89,7 +89,7 @@ class UploadTask: Task {
             body.append(string.data(using: String.Encoding.utf8, allowLossyConversion: false)!)
         }
         var extention = self.fileURL!.pathExtension
-        if extention == nil {
+        if extention.isEmpty {
             extention = "png"
         }
         appendStringBlock("\r\n--\(boundary)\r\n")

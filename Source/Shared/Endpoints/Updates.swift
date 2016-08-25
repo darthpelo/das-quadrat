@@ -15,7 +15,7 @@ public class Updates: Endpoint {
     
     /** https://developer.foursquare.com/docs/updates/updates */
     public func get(_ updateId: String, completionHandler: ResponseClosure? = nil) -> Task {
-        return self.getWithPath(updateId, parameters: nil, completionHandler: completionHandler)
+        return self.get(with: updateId, parameters: nil, completionHandler: completionHandler)
     }
     
     // MARK: - General
@@ -27,7 +27,7 @@ public class Updates: Endpoint {
         if let limit = limit {
             parameters = [Parameter.limit:limit]
         }
-        return self.getWithPath(path, parameters: parameters, completionHandler: completionHandler)
+        return self.get(with: path, parameters: parameters, completionHandler: completionHandler)
     }
     
     // MARK: - Actions
@@ -36,6 +36,6 @@ public class Updates: Endpoint {
     public func notifications(_ highWatermark: String, completionHandler: ResponseClosure? = nil) -> Task {
         let path = "marknotificationsread"
         let parameters = [Parameter.highWatermark: highWatermark]
-        return self.postWithPath(path, parameters: parameters, completionHandler: completionHandler)
+        return self.post(with: path, parameters: parameters, completionHandler: completionHandler)
     }
 }

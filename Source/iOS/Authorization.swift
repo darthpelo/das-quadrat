@@ -23,7 +23,7 @@ extension Session {
     public func canUseNativeOAuth() -> Bool {
         let baseURL = self.configuration.server.nativeOauthBaseURL
         let URL = Foundation.URL(string: baseURL) as Foundation.URL!
-        return UIApplication.shared().canOpenURL(URL!)
+        return UIApplication.shared.canOpenURL(URL!)
     }
     
     public func handleURL(_ URL: Foundation.URL) -> Bool {
